@@ -353,6 +353,12 @@ UserSchema.methods.isEnrolled = ->
   return true unless coursePrepaid.endDate
   return coursePrepaid.endDate > new Date().toISOString()
 
+UserSchema.methods.prepaidIncludesCourse = (course) ->
+  includedCourseIDs = @get('coursePrepaid')?.includedCourseIDs
+  courseID = course.id or course
+  # NOTE: Full licenses implicitly include all courses
+  return !includedCourseIDs or courseID.toString() in includedCourseIDs.map((id)->id.toString())
+
 UserSchema.methods.hasLogInMethod = ->
   return true if _.any([
     @get('facebookID')
@@ -526,7 +532,7 @@ UserSchema.plugin plugins.NamedPlugin
 UserSchema.virtual('subscription').get ->
   subscription = {
     active: @hasSubscription()
-  } 
+  }
   
   { free } = @get('stripe') ? {}
   if _.isString(free)
