@@ -55,6 +55,9 @@ describe 'EnrollmentsView', ->
     ])
     @view.courses.fakeRequests[0].respondWith({ status: 200, responseText: courses.stringify() })
 
+    leadPriorityRequest = jasmine.Ajax.requests.filter((r)-> r.url == '/db/user/-/lead-priority')[0]
+    leadPriorityRequest.respondWith({status: 200, responseText: JSON.stringify({ priority: 'low' })})
+
     jasmine.demoEl(@view.$el)
     window.view = @view
     @view.supermodel.once 'loaded-all', done
