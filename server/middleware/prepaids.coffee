@@ -17,6 +17,7 @@ cutoffDate = new Date(2015,11,11)
 cutoffID = mongoose.Types.ObjectId(Math.floor(cutoffDate/1000).toString(16)+'0000000000000000')
 
 module.exports =
+  # Create a prepaid manually (as an admin)
   post: wrap (req, res) ->
     validTypes = ['course']
     unless req.body.type in validTypes
@@ -123,6 +124,7 @@ module.exports =
 
     res.send({prepaidActivityMap, schoolPrepaidsMap})
   
+  # Separate endpoint from legacy prepaid purchase handler
   purchaseStarterLicenses: wrap (req, res) ->
     if req.body.type not in ['starter_license']
       throw new errors.Forbidden("License type invalid: #{req.body.type}")

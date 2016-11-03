@@ -197,6 +197,10 @@ describe 'GET /db/prepaid?creator=:id', ->
 
     
 describe '/db/prepaid', ->
+  beforeEach utils.wrap (done) ->
+    yield utils.populateProducts()
+    done()
+  
   prepaidURL = getURL('/db/prepaid')
 
   headers = {'X-Change-Plan': 'true'}
