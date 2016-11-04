@@ -15,7 +15,7 @@ PrepaidSchema.index({owner: 1, endDate: 1}, { sparse: true })
 
 PrepaidSchema.statics.DEFAULT_START_DATE = new Date(2016,4,15).toISOString()
 PrepaidSchema.statics.DEFAULT_END_DATE = new Date(2017,5,1).toISOString()
-PrepaidSchema.statics.MAX_STARTER_LICENSES = 75
+PrepaidSchema.statics.MAX_STARTER_LICENSES = (require '../../app/core/constants').MAX_STARTER_LICENSES
 
 PrepaidSchema.statics.generateNewCode = (done) ->
   # Deprecated for not following Node callback convention. TODO: Remove

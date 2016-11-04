@@ -4,7 +4,7 @@ Products = require 'collections/Products'
 PurchaseStarterLicensesModal = require 'views/teachers/PurchaseStarterLicensesModal'
 TeachersContactModal = require 'views/teachers/TeachersContactModal'
 
-{ MAX_STARTER_LICENSES, STARTER_LICENCE_LENGTH_MONTHS } = require 'lib/constants'
+{ MAX_STARTER_LICENSES, STARTER_LICENCE_LENGTH_MONTHS } = require 'core/constants'
 
 module.exports = class StarterLicensesView extends RootView
   id: 'starter-licenses-view'

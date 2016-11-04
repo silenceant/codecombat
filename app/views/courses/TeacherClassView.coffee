@@ -22,7 +22,7 @@ CourseInstance = require 'models/CourseInstance'
 CourseInstances = require 'collections/CourseInstances'
 Prepaids = require 'collections/Prepaids'
 
-{ STARTER_LICENSE_COURSE_IDS } = require 'lib/constants'
+{ STARTER_LICENSE_COURSE_IDS } = require 'core/constants'
 
 module.exports = class TeacherClassView extends RootView
   id: 'teacher-class-view'
@@ -426,7 +426,7 @@ module.exports = class TeacherClassView extends RootView
       availableFullLicenses = @prepaids.filter((prepaid) -> prepaid.status() is 'available' and prepaid.get('type') is 'course')
       numStudentsWithoutFullLicenses = _(members)
         .map((userID) => @students.get(userID))
-        .filter((user) => user.prepaidType() isnt 'course')
+        .filter((user) => user.prepaidType() isnt 'course' or user.prepaidStatus() isnt 'enrolled')
         .size()
       numFullLicensesAvailable = _.reduce(prepaid.openSpots() for prepaid in availablePrepaids, (val, total) -> val + total) or 0
       if courseID not in STARTER_LICENSE_COURSE_IDS

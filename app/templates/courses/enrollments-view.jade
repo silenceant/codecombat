@@ -77,14 +77,11 @@ block content
 
           #actions-col.col-md-3
             +addCredits
-            +enrollmentStats
 
         else
           // no prepaids
-          .col-sm-6.col-lg-4.col-lg-offset-2
+          .col-sm-6.col-sm-offset-6.col-lg-4.col-lg-offset-4
             +addCredits
-          .col-sm-6.col-lg-4
-            +enrollmentStats
 
 mixin prepaidCard(prepaid, className)
   .prepaid-card.bg-navy.text-center.m-b-2.p-a-2(class=className)
@@ -116,32 +113,3 @@ mixin addCredits
     else
       p.m-y-2(data-i18n="teacher.get_enrollments_blurb")
       button#contact-us-btn.btn-lg.btn.btn-forest(data-i18n="contribute.contact_us_url")
-
-
-mixin enrollmentStats
-  h5.text-center.m-t-3.m-b-2(data-i18n='teacher.enrollment_status')
-  table#enrollment-stats-table.table-condensed.table.small-details
-    tr
-      td
-        span(data-i18n='teacher.total_unique_students')
-        span.spr :
-      td= view.state.get('totalEnrolled') + view.state.get('totalNotEnrolled')
-    tr
-      td
-        span(data-i18n='teacher.total_enrolled_students')
-        span.spr :
-      td= view.state.get('totalEnrolled')
-    tr
-      th(data-i18n='teacher.unenrolled_students')
-      th= view.state.get('totalNotEnrolled')
-    each classroom in view.classrooms.models
-      if classroom.get('members').length > 0 && view.state.get('classroomNotEnrolledMap')[classroom.id] > 0
-        tr
-          td.classroom-name-td
-            span= classroom.get('name')
-            span.spr :
-          td= view.state.get('classroomNotEnrolledMap')[classroom.id]
-
-  .text-center
-    button#enroll-students-btn.btn.btn-lg.btn-navy
-      span(data-i18n='teacher.apply_licenses')

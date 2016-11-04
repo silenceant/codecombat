@@ -12,7 +12,7 @@ StripeUtils = require '../lib/stripe_utils'
 Promise.promisifyAll(StripeUtils)
 moment = require 'moment'
 slack = require '../slack'
-{ STARTER_LICENSE_COURSE_IDS } = require '../../app/lib/constants'
+{ STARTER_LICENSE_COURSE_IDS } = require '../../app/core/constants'
 
 cutoffDate = new Date(2015,11,11)
 cutoffID = mongoose.Types.ObjectId(Math.floor(cutoffDate/1000).toString(16)+'0000000000000000')

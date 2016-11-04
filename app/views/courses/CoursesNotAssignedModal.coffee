@@ -2,7 +2,7 @@ ModalView = require 'views/core/ModalView'
 State = require 'models/State'
 template = require 'templates/courses/courses-not-assigned-modal'
 
-{ STARTER_LICENSE_COURSE_IDS } = require 'lib/constants'
+{ STARTER_LICENSE_COURSE_IDS } = require 'core/constants'
 
 module.exports = class CoursesNotAssignedModal extends ModalView
   id: 'courses-not-assigned-modal'
