@@ -378,6 +378,7 @@ module.exports = class User extends CocoModel
     Prepaid = require 'models/Prepaid'
     return new Prepaid(coursePrepaid)
   
+  # TODO: Probably better to denormalize this into the user
   getLeadPriority: ->
     $.get('/db/user/-/lead-priority')
 

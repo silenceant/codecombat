@@ -883,7 +883,7 @@
     wd1: "Web Development 1"
     gd: "Game Development"
     gd1: "Game Development 1"
-    maximum_students: "Maximum # of students"
+    maximum_students: "Maximum # of Students"
     unlimited: "Unlimited"
     priority_support: "Priority support"
     yes: "Yes"
@@ -1459,9 +1459,9 @@
     assign_course: "Assign Course"
     not_assigned_modal_title: "Courses were not assigned"
     # TODO: Get final copy of these 4 from doc
-    not_assigned_modal_starter_body_1: "This course requires a Starter License. You do not have enough Starter Licenses available to assign this course to all 3 selecter students."
+    not_assigned_modal_starter_body_1: "This course requires a Starter License. You do not have enough Starter Licenses available to assign this course to all __selected__ selected students."
     not_assigned_modal_starter_body_2: "Purchase Starter Licenses to grant access to this course."
-    not_assigned_modal_full_body_1: "This course requires a Full License. You do not have enough Full Licenses available to assign this course to all 3 selected students."
+    not_assigned_modal_full_body_1: "This course requires a Full License. You do not have enough Full Licenses available to assign this course to all __selected__ selected students."
     not_assigned_modal_full_body_2: "You only have __numFullLicensesAvailable__ Full Licenses available (__numStudentsWithoutFullLicenses__ students do not currently have a Full License active)."
     not_assigned_modal_full_body_3: "Please select fewer students, or reach out to __supportEmail__ for assistance."
     

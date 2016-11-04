@@ -432,6 +432,7 @@ module.exports = class TeacherClassView extends RootView
           selected: members.length
           numStudentsWithoutFullLicenses
           numFullLicensesAvailable
+          courseID
         })
         @openModalView(modal)
         error = new Error('Not enough licenses available')
@@ -484,7 +485,7 @@ module.exports = class TeacherClassView extends RootView
     .catch (e) =>
       # TODO: Use this handling for errors site-wide?
       return if e.handled
-      throw e if e instanceof Error and application.testing
+      throw e if e instanceof Error and not application.isProduction()
       text = if e instanceof Error then 'Runtime error' else e.responseJSON?.message or e.message or $.i18n.t('loading_error.unknown')
       noty { text, layout: 'center', type: 'error', killer: true, timeout: 5000 }
 

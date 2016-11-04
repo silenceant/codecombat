@@ -4,12 +4,16 @@ Products = require 'collections/Products'
 PurchaseStarterLicensesModal = require 'views/teachers/PurchaseStarterLicensesModal'
 TeachersContactModal = require 'views/teachers/TeachersContactModal'
 
+{ MAX_STARTER_LICENSES, STARTER_LICENCE_LENGTH_MONTHS } = require 'lib/constants'
+
 module.exports = class StarterLicensesView extends RootView
   id: 'starter-licenses-view'
   template: require 'templates/teachers/starter-licenses-view'
 
   i18nData:
-    maxQuantityStarterLicenses: 75
+    maxQuantityStarterLicenses: MAX_STARTER_LICENSES
+    starterLicenseLengthMonths: STARTER_LICENCE_LENGTH_MONTHS
+    starterLicenseCourseList: 'Computer Science 2, Web Development 1, and Game Development 1'
     
   events:
     'click .purchase-btn': 'onClickPurchaseButton'

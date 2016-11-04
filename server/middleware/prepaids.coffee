@@ -12,6 +12,7 @@ StripeUtils = require '../lib/stripe_utils'
 Promise.promisifyAll(StripeUtils)
 moment = require 'moment'
 slack = require '../slack'
+{ STARTER_LICENSE_COURSE_IDS } = require '../../app/lib/constants'
 
 cutoffDate = new Date(2015,11,11)
 cutoffID = mongoose.Types.ObjectId(Math.floor(cutoffDate/1000).toString(16)+'0000000000000000')
@@ -190,6 +191,7 @@ createStarterLicense = wrap ({ creator, maxRedeemers }) ->
     maxRedeemers, properties: {}
     startDate: moment().toISOString()
     endDate: moment().add(6, 'months').toISOString()
+    includedCourseIDs: STARTER_LICENSE_COURSE_IDS
   })
 
 createPrepaid = wrap ({ creator, type, maxRedeemers, properties, startDate, endDate }) ->
