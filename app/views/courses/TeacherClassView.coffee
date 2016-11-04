@@ -22,6 +22,8 @@ CourseInstance = require 'models/CourseInstance'
 CourseInstances = require 'collections/CourseInstances'
 Prepaids = require 'collections/Prepaids'
 
+{ STARTER_LICENSE_COURSE_IDS } = require 'lib/constants'
+
 module.exports = class TeacherClassView extends RootView
   id: 'teacher-class-view'
   template: template
@@ -427,7 +429,11 @@ module.exports = class TeacherClassView extends RootView
         .filter((user) => user.prepaidType() isnt 'course')
         .size()
       numFullLicensesAvailable = _.reduce(prepaid.openSpots() for prepaid in availablePrepaids, (val, total) -> val + total) or 0
-      if totalSpotsAvailable < _.size(unenrolledStudents)
+      if courseID not in STARTER_LICENSE_COURSE_IDS
+        canAssignCourses = numFullLicensesAvailable >= numStudentsWithoutFullLicenses
+      else
+        canAssignCourses = totalSpotsAvailable >= _.size(unenrolledStudents)
+      if not canAssignCourses
         modal = new CoursesNotAssignedModal({
           selected: members.length
           numStudentsWithoutFullLicenses
