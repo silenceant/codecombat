@@ -1464,11 +1464,6 @@
     not_assigned_modal_full_body_1: "This course requires a Full License. You do not have enough Full Licenses available to assign this course to all __selected__ selected students."
     not_assigned_modal_full_body_2: "You only have __numFullLicensesAvailable__ Full Licenses available (__numStudentsWithoutFullLicenses__ students do not currently have a Full License active)."
     not_assigned_modal_full_body_3: "Please select fewer students, or reach out to __supportEmail__ for assistance."
-    
-    
-    not_assigned_modal_body_1: "You do not have enough licenses available to assign additional Courses to all {{selected}} selected students."
-    not_assigned_modal_body_2: "You only have {{totalSpotsAvailable}} licenses available ({{unenrolledStudents}} students did not have an active license)."
-    not_assigned_modal_body_3: "Please select fewer students, or reach out to {{email}} for assistance."
     assign_to_selected_students: "Assign to Selected Students"
     assigned: "Assigned"
     enroll_selected_students: "Enroll Selected Students"

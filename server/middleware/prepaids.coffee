@@ -194,7 +194,7 @@ createStarterLicense = wrap ({ creator, maxRedeemers }) ->
     includedCourseIDs: STARTER_LICENSE_COURSE_IDS
   })
 
-createPrepaid = wrap ({ creator, type, maxRedeemers, properties, startDate, endDate }) ->
+createPrepaid = wrap ({ creator, type, maxRedeemers, properties, startDate, endDate, includedCourseIDs }) ->
   options =
     creator: creator
     type: type
@@ -204,6 +204,7 @@ createPrepaid = wrap ({ creator, type, maxRedeemers, properties, startDate, endD
     redeemers: []
     startDate: startDate
     endDate: endDate
+    includedCourseIDs: includedCourseIDs
   prepaid = new Prepaid(options)
   yield prepaid.save()
   return prepaid
