@@ -6,4 +6,5 @@ module.exports = class CoursesNotAssignedModal extends ModalView
   template: template
 
   initialize: (options) ->
-    _.assign(@, _.pick(options, 'selected', 'totalSpotsAvailable', 'unenrolledStudents'))
+    @i18ndata = options
+    # @promoteStarterLicenses =

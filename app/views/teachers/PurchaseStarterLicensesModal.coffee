@@ -14,6 +14,7 @@ module.exports = class PurchaseStarterLicensesModal extends ModalView
     @maxQuantityStarterLicenses,
     starterLicenseLengthMonths: 6,
     quantityAlreadyPurchased: @state.get('quantityAlreadyPurchased')
+    supportEmail: "<a href='mailto:support@codecombat.com'>support@codecombat.com</a>"
   }
   
   events:

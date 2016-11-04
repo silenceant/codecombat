@@ -420,11 +420,18 @@ module.exports = class TeacherClassView extends RootView
         .filter((user) => user.prepaidStatus() isnt 'enrolled')
         .value()
       totalSpotsAvailable = _.reduce(prepaid.openSpots() for prepaid in availablePrepaids, (val, total) -> val + total) or 0
+      
+      availableFullLicenses = @prepaids.filter((prepaid) -> prepaid.status() is 'available' and prepaid.get('type') is 'course')
+      numStudentsWithoutFullLicenses = _(members)
+        .map((userID) => @students.get(userID))
+        .filter((user) => user.prepaidType() isnt 'course')
+        .size()
+      numFullLicensesAvailable = _.reduce(prepaid.openSpots() for prepaid in availablePrepaids, (val, total) -> val + total) or 0
       if totalSpotsAvailable < _.size(unenrolledStudents)
         modal = new CoursesNotAssignedModal({
           selected: members.length
-          totalSpotsAvailable
-          unenrolledStudents: _.size(unenrolledStudents)
+          numStudentsWithoutFullLicenses
+          numFullLicensesAvailable
         })
         @openModalView(modal)
         error = new Error('Not enough licenses available')

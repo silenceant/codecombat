@@ -8,6 +8,9 @@ module.exports = class StarterLicensesView extends RootView
   id: 'starter-licenses-view'
   template: require 'templates/teachers/starter-licenses-view'
 
+  i18nData:
+    maxQuantityStarterLicenses: 75
+    
   events:
     'click .purchase-btn': 'onClickPurchaseButton'
     'click .contact-us-btn': 'onClickContactUsButton'

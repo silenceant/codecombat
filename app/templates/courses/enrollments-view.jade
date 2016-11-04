@@ -38,18 +38,14 @@ block content
           .row
             .col-xs-9.m-t-1
               b
-                span.text-uppercase(data-i18n="TODO")
-                  | Special offer
+                span.text-uppercase(data-i18n="special_offer.special_offer")
                 =': '
-                span(data-i18n="TODO")
-                  | Student Starter License
+                span(data-i18n="special_offer.student_starter_license")
               .small-details
-                i(data-i18n="TODO")
-                  | Purchase Starter Licenses to grant access to Computer Science 2, Web Development 1, and Game Development 1
+                i(data-i18n="special_offer.purchase_starter_licenses_to_grant", data-i18n-options='{ "starterLicenseCourseList": "Computer Science 2, Web Development 1, and Game Development 1" }')
             .col-xs-3
               a.btn.btn-lg.btn-forest-alt.m-t-2.m-b-2(href="/teachers/starter-licenses")
-                b(data-i18n="TODO")
-                  | Learn More
+                b(data-i18n="general.learn_more")
 
     .container.m-t-5
       .pull-right
@@ -57,7 +53,7 @@ block content
         =' '
         a#how-to-enroll-link(data-i18n="teacher.how_to_apply_licenses")
       h3(data-i18n='teacher.enrollments')
-      h4#enrollments-blurb(data-i18n='teacher.enrollments_blurb')  
+      h4#enrollments-blurb(data-i18n="teacher.enrollments_blurb")  
       - var available = view.state.get('prepaidGroups').available
       - var pending = view.state.get('prepaidGroups').pending
       - var anyPrepaids = available || pending

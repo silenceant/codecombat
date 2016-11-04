@@ -455,9 +455,7 @@ mixin enrollmentStatusTab
               button.enroll-student-button.btn.btn-navy(data-i18n="teacher.apply_license", data-user-id=student.id, data-event-action="Teachers Class Enrollment Enroll Student")
             else
               if student.get('coursePrepaid').type === 'course'
-                span(data-i18n="TODO")
-                  | Full License
+                span(data-i18n="teacher.full_license")
               else if student.get('coursePrepaid').type === 'starter_license'
-                span(data-i18n="TODO")
-                  | Starter License
+                span(data-i18n="teacher.starter_license")
                 
