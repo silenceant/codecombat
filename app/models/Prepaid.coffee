@@ -47,6 +47,6 @@ module.exports = class Prepaid extends CocoModel
   includesCourse: (course) ->
     courseID = course.get?('name') or course
     if @get('type') is 'starter_license'
-      return courseID in STARTER_LICENSE_COURSE_IDS
+      return courseID in @get('includedCourseIDs')
     else
       return true

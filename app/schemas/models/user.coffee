@@ -363,8 +363,8 @@ _.extend UserSchema.properties,
   lastAchievementChecked: c.stringDate({ name: 'Last Achievement Checked' })
   
   israelId: {type: 'string', description: 'ID string used just for il.codecombat.com'}
-  school: { 
-    type: 'object', 
+  school: {
+    type: 'object',
     description: 'Generic property for storing school information. Currently
                   only used by Israel; if/when we use it for other purposes,
                   think about how to keep the data consistent.',

@@ -212,12 +212,13 @@ describe 'POST /db/course_instance/:id/members', ->
         yield @student.save()
         done()
       
-      it 'adds a member to the courseInstance', ->
+      it 'adds a member to the courseInstance', utils.wrap (done) ->
         url = getURL("/db/course_instance/#{@courseInstance.id}/members")
         [res, body] = yield request.postAsync {uri: url, json: {userID: @student.id}}
         expect(res.statusCode).toBe(200)
         expect(res.body.members.length).toBe(1)
         expect(res.body.members[0]).toBe(@student.id)
+        done()
   
     describe 'and the course is NOT included in the license', ->
       beforeEach utils.wrap (done) ->
@@ -231,11 +232,14 @@ describe 'POST /db/course_instance/:id/members', ->
         yield @student.save()
         done()
 
-      it "doesn't add a member to the courseInstance", ->
+      it "doesn't add a member to the courseInstance", (done) ->
         url = getURL("/db/course_instance/#{@courseInstance.id}/members")
         [res, body] = yield request.postAsync {uri: url, json: {userID: @student.id}}
-        expect(res.statusCode).toBe(200)
-        expect(res.body.members.length).toBe(0)
+        expect(res.statusCode).toBe(402)
+        url = getURL("/db/course_instance/#{@courseInstance.id}/members")
+        [res, body] = yield request.getAsync {uri: url, json: true}
+        expect(res.body).toEqual([])
+        done()
 
 describe 'DELETE /db/course_instance/:id/members', ->
 

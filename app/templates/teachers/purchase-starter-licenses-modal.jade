@@ -25,7 +25,6 @@ block modal-body-content
     = state.get('purchaseProgressMessage')
   
   p.small.m-t-5
-    - console.log(JSON.stringify(view.i18nData()))
     span(data-i18n="[html]special_offer.license_limit_description", data-i18n-options=JSON.stringify(view.i18nData()))
 
 block modal-footer

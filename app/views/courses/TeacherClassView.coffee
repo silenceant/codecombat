@@ -428,7 +428,7 @@ module.exports = class TeacherClassView extends RootView
         .map((userID) => @students.get(userID))
         .filter((user) => user.prepaidType() isnt 'course' or user.prepaidStatus() isnt 'enrolled')
         .size()
-      numFullLicensesAvailable = _.reduce(prepaid.openSpots() for prepaid in availablePrepaids, (val, total) -> val + total) or 0
+      numFullLicensesAvailable = _.reduce(prepaid.openSpots() for prepaid in availableFullLicenses, (val, total) -> val + total) or 0
       if courseID not in STARTER_LICENSE_COURSE_IDS
         canAssignCourses = numFullLicensesAvailable >= numStudentsWithoutFullLicenses
       else

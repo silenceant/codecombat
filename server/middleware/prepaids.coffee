@@ -1,4 +1,5 @@
 wrap = require 'co-express'
+co = require 'co'
 errors = require '../commons/errors'
 database = require '../commons/database'
 mongoose = require 'mongoose'
@@ -140,7 +141,7 @@ module.exports =
       throw new errors.UnprocessableEntity("Invalid number of licenses to buy: #{maxRedeemers}")
 
     alreadyOwnedStarterLicenses = yield Prepaid.find({
-      creator: mongoose.Types.ObjectId(creator.id)
+      creator: creator._id
       type: 'starter_license'
     }).exec()
     alreadyOwnedStarterLicenseCount = alreadyOwnedStarterLicenses.map((prepaid) -> prepaid.get('maxRedeemers')).reduce(((a,b) -> a+b), 0)
@@ -152,11 +153,8 @@ module.exports =
       throw new errors.UnprocessableEntity('Missing required Stripe token')
 
     if creator.isAdmin()
-      try
-        yield createStarterLicense({ creator: creator.id, maxRedeemers })
-        res.status(200).send(prepaid)
-      catch e
-        throw new errors.InternalServerError("Database error: #{e.message}")
+      yield createStarterLicense({ creator: creator.id, maxRedeemers })
+      res.status(200).send(prepaid)
 
     else
       product = yield Product.findOne({ name: 'starter_license' })
@@ -184,7 +182,7 @@ module.exports =
         logError(creator, "getCustomer error: #{JSON.stringify(err)}")
         throw(err)
 
-createStarterLicense = wrap ({ creator, maxRedeemers }) ->
+createStarterLicense = co.wrap ({ creator, maxRedeemers }) ->
   yield createPrepaid({
     creator: creator
     type: 'starter_license'
@@ -194,7 +192,7 @@ createStarterLicense = wrap ({ creator, maxRedeemers }) ->
     includedCourseIDs: STARTER_LICENSE_COURSE_IDS
   })
 
-createPrepaid = wrap ({ creator, type, maxRedeemers, properties, startDate, endDate, includedCourseIDs }) ->
+createPrepaid = co.wrap ({ creator, type, maxRedeemers, properties, startDate, endDate, includedCourseIDs }) ->
   options =
     creator: creator
     type: type

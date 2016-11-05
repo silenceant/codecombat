@@ -890,6 +890,7 @@
     price_per_student: "__price__ per student"
     pricing: "Pricing"
     free: "Free"
+    purchase: "Purchase"
 
   teachers_quote:
     name: "Demo Form"
