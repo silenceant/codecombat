@@ -137,18 +137,18 @@ module.exports =
       numStudentsTotal = trialRequest.get('properties').numStudentsTotal
       # nces_district_students takes priority over self-reported number
       if nces_district_students > 5000
-        res.status(200).send({ priority: 'high' })
+        return res.status(200).send({ priority: 'high' })
       else if nces_district_students > 1000
-        res.status(200).send({ priority: 'medium' })
+        return res.status(200).send({ priority: 'medium' })
       else if nces_district_students > 0
-        res.status(200).send({ priority: 'low' })
+        return res.status(200).send({ priority: 'low' })
       else if numStudentsTotal in ['5,000-10,000', '10,000+']
-        res.status(200).send({ priority: 'high' })
+        return res.status(200).send({ priority: 'high' })
       else if numStudentsTotal in ['1,000-5,000']
-        res.status(200).send({ priority: 'medium' })
+        return res.status(200).send({ priority: 'medium' })
       else if numStudentsTotal in ['1-500', '500-1,000']
-        res.status(200).send({ priority: 'low' })
-    res.status(200).send({ priority: undefined })
+        return res.status(200).send({ priority: 'low' })
+    return res.status(200).send({ priority: undefined })
 
   signupWithPassword: wrap (req, res) ->
     unless req.user.isAnonymous()
