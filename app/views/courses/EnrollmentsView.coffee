@@ -8,6 +8,12 @@ Courses = require 'collections/Courses'
 HowToEnrollModal = require 'views/teachers/HowToEnrollModal'
 TeachersContactModal = require 'views/teachers/TeachersContactModal'
 ActivateLicensesModal = require 'views/courses/ActivateLicensesModal'
+utils = require 'core/utils'
+
+{
+  STARTER_LICENSE_COURSE_IDS
+  FREE_COURSE_IDS
+} = require 'core/constants'
 
 module.exports = class EnrollmentsView extends RootView
   id: 'enrollments-view'
@@ -19,6 +25,9 @@ module.exports = class EnrollmentsView extends RootView
     'click #contact-us-btn': 'onClickContactUsButton'
 
   getTitle: -> return $.i18n.t('teacher.enrollments')
+  
+  i18nData: ->
+    starterLicenseCourseList: @state.get('starterLicenseCourseList')
 
   initialize: (options) ->
     @state = new State({
@@ -38,7 +47,14 @@ module.exports = class EnrollmentsView extends RootView
     super(options)
 
     @courses = new Courses()
-    @supermodel.trackRequest @courses.fetch({data: { project: 'free' }})
+    @supermodel.trackRequest @courses.fetch({data: { project: 'free,i18n' }})
+    @listenTo @courses, 'sync', ->
+      COURSE_IDS = _.difference(STARTER_LICENSE_COURSE_IDS, FREE_COURSE_IDS)
+      starterLicenseCourseList = _.difference(STARTER_LICENSE_COURSE_IDS, FREE_COURSE_IDS).map (_id) =>
+        utils.i18n(@courses.findWhere({_id})?.attributes, 'name')
+      starterLicenseCourseList.push($.t('general.and') + ' ' + starterLicenseCourseList.pop())
+      starterLicenseCourseList = starterLicenseCourseList.join(', ')
+      @state.set { starterLicenseCourseList }
     @members = new Users()
     @classrooms = new Classrooms()
     @classrooms.comparator = '_id'

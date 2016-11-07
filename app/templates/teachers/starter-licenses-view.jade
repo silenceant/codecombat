@@ -10,7 +10,7 @@ block content
         b.small-details.text-uppercase(data-i18n="special_offer.special_offer")
         h3(data-i18n="special_offer.student_starter_license")
         .small-details
-          i(data-i18n="special_offer.purchase_starter_licenses_to_grant", data-i18n-options=JSON.stringify(view.i18nData))
+          i(data-i18n="special_offer.purchase_starter_licenses_to_grant", data-i18n-options=JSON.stringify(view.i18nData()))
 
   .container
     .row.tall-margin
@@ -21,11 +21,11 @@ block content
       .checkmark-blurb.col-xs-4.text-center
         span.fa.fa-check(aria-hidden=true)
         h5(data-i18n="special_offer.great_for_clubs_title")
-        p.small(data-i18n="special_offer.great_for_clubs_description", data-i18n-options=JSON.stringify(view.i18nData))
+        p.small(data-i18n="special_offer.great_for_clubs_description", data-i18n-options=JSON.stringify(view.i18nData()))
       .checkmark-blurb.col-xs-4.text-center
         span.fa.fa-check(aria-hidden=true)
         h5(data-i18n='special_offer.low_price_title', data-i18n-options=JSON.stringify({ starterLicensePrice: '$' + view.state.get('dollarsPerStudent') }))
-        p.small(data-i18n="special_offer.low_price_description", data-i18n-options=JSON.stringify(view.i18nData))
+        p.small(data-i18n="special_offer.low_price_description", data-i18n-options=JSON.stringify(view.i18nData()))
   
     .row.text-center.tall-margin-top
       h2
