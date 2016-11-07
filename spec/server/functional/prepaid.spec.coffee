@@ -173,6 +173,7 @@ describe 'POST /db/prepaid/:handle/redeemers', ->
     expect(res.statusCode).toBe(201)
     student = yield User.findById(@student.id)
     expect(student.get('coursePrepaid')?.includedCourseIDs).toEqual(['course_1', 'course_2'])
+    expect(student.get('coursePrepaid')?.type).toEqual('starter_license')
     done()
 
 describe 'GET /db/prepaid?creator=:id', ->
