@@ -39,15 +39,23 @@ module.exports = class StarterLicensesView extends RootView
       }
     @courses = new Courses()
     @supermodel.trackRequest @courses.fetch()
-    @listenTo @courses, 'sync', ->
-      COURSE_IDS = _.difference(STARTER_LICENSE_COURSE_IDS, FREE_COURSE_IDS)
-      starterLicenseCourseList = _.difference(STARTER_LICENSE_COURSE_IDS, FREE_COURSE_IDS).map (_id) =>
-        utils.i18n(@courses.findWhere({_id})?.attributes, 'name')
-      starterLicenseCourseList.push($.t('general.and') + ' ' + starterLicenseCourseList.pop())
-      starterLicenseCourseList = starterLicenseCourseList.join(', ')
-      @state.set { starterLicenseCourseList }
     @listenTo @state, 'change', ->
       @render()
+    # Listen for language change
+    @listenTo me, 'change:preferredLanguage', ->
+      @state.set { starterLicenseCourseList: @getStarterLicenseCourseList() }
+      
+  onLoaded: ->
+    @state.set { starterLicenseCourseList: @getStarterLicenseCourseList() }
+    null
+      
+  getStarterLicenseCourseList: ->
+    return if !@courses.loaded
+    COURSE_IDS = _.difference(STARTER_LICENSE_COURSE_IDS, FREE_COURSE_IDS)
+    starterLicenseCourseList = _.difference(STARTER_LICENSE_COURSE_IDS, FREE_COURSE_IDS).map (_id) =>
+      utils.i18n(@courses.findWhere({_id})?.attributes, 'name')
+    starterLicenseCourseList.push($.t('general.and') + ' ' + starterLicenseCourseList.pop())
+    starterLicenseCourseList.join(', ')
 
   onClickPurchaseButton: ->
     @openModalView(new PurchaseStarterLicensesModal())

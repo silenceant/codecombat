@@ -47,14 +47,10 @@ module.exports = class EnrollmentsView extends RootView
     super(options)
 
     @courses = new Courses()
-    @supermodel.trackRequest @courses.fetch({data: { project: 'free,i18n' }})
-    @listenTo @courses, 'sync', ->
-      COURSE_IDS = _.difference(STARTER_LICENSE_COURSE_IDS, FREE_COURSE_IDS)
-      starterLicenseCourseList = _.difference(STARTER_LICENSE_COURSE_IDS, FREE_COURSE_IDS).map (_id) =>
-        utils.i18n(@courses.findWhere({_id})?.attributes, 'name')
-      starterLicenseCourseList.push($.t('general.and') + ' ' + starterLicenseCourseList.pop())
-      starterLicenseCourseList = starterLicenseCourseList.join(', ')
-      @state.set { starterLicenseCourseList }
+    @supermodel.trackRequest @courses.fetch({data: { project: 'free,i18n,name' }})
+    # Listen for language change
+    @listenTo me, 'change:preferredLanguage', ->
+      @state.set { starterLicenseCourseList: @getStarterLicenseCourseList() }
     @members = new Users()
     @classrooms = new Classrooms()
     @classrooms.comparator = '_id'
@@ -71,11 +67,20 @@ module.exports = class EnrollmentsView extends RootView
     @supermodel.trackRequest leadPriorityRequest
     leadPriorityRequest.then(({ priority }) => @state.set({ shouldUpsell: (priority is 'low') }))
 
+  getStarterLicenseCourseList: ->
+    return if !@courses.loaded
+    COURSE_IDS = _.difference(STARTER_LICENSE_COURSE_IDS, FREE_COURSE_IDS)
+    starterLicenseCourseList = _.difference(STARTER_LICENSE_COURSE_IDS, FREE_COURSE_IDS).map (_id) =>
+      utils.i18n(@courses.findWhere({_id})?.attributes, 'name')
+    starterLicenseCourseList.push($.t('general.and') + ' ' + starterLicenseCourseList.pop())
+    starterLicenseCourseList.join(', ')
+
   onceClassroomsSync: ->
     for classroom in @classrooms.models
       @supermodel.trackRequests @members.fetchForClassroom(classroom, {remove: false, removeDeleted: true})
 
   onLoaded: ->
+    @state.set { starterLicenseCourseList: @getStarterLicenseCourseList() }
     @calculateEnrollmentStats()
     @state.set('totalCourses', @courses.size())
     super()

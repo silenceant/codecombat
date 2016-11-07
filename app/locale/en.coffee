@@ -891,6 +891,10 @@
     pricing: "Pricing"
     free: "Free"
     purchase: "Purchase"
+    courses_prefix: "Courses"
+    courses_suffix: ""
+    course_prefix: "Course"
+    course_suffix: ""
 
   teachers_quote:
     name: "Demo Form"
