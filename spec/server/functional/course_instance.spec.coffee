@@ -232,7 +232,7 @@ describe 'POST /db/course_instance/:id/members', ->
         yield @student.save()
         done()
 
-      it "doesn't add a member to the courseInstance", (done) ->
+      it "doesn't add a member to the courseInstance", utils.wrap (done) ->
         url = getURL("/db/course_instance/#{@courseInstance.id}/members")
         [res, body] = yield request.postAsync {uri: url, json: {userID: @student.id}}
         expect(res.statusCode).toBe(402)
