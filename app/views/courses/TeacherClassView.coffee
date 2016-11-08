@@ -88,7 +88,6 @@ module.exports = class TeacherClassView extends RootView
     @sortedCourses = []
 
     @prepaids = new Prepaids()
-    @prepaids.comparator = 'endDate' # use prepaids in order of expiration
     @supermodel.trackRequest @prepaids.fetchByCreator(me.id)
 
     @students = new Users()
@@ -463,6 +462,10 @@ module.exports = class TeacherClassView extends RootView
       # refresh prepaids, since the racing multiple parallel redeem requests in the previous `then` probably did not
       # end up returning the final result of all those requests together.
       @prepaids.fetchByCreator(me.id)
+      @listenTo @prepaids, 'sync', ->
+        console.log arguments
+        debugger
+        null
       @students.fetchForClassroom(@classroom, removeDeleted: true)
       
       @trigger 'begin-assign-course'

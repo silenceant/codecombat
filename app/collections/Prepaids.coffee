@@ -14,7 +14,7 @@ module.exports = class Prepaids extends CocoCollection
   comparator: (prepaid) ->
     [
       if prepaid.get('type') is 'course' then 'C' else 'S'
-      prepaid.id
+      prepaid.get('endDate')
     ].toString()
 
   totalMaxRedeemers: ->
